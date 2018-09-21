@@ -28,11 +28,12 @@ class DashboardController extends Controller
     public function index()
     {
       $userId = Auth::user()->getAuthIdentifier();
-      $token = DB::table('oauth_access_tokens')->where('user_id', '=', $userId)->first();
+//      $token = DB::table('oauth_access_tokens')->where('user_id', '=', $userId)->first();
 //      dd($userId);
       // @TODO: Only return tasks belonging to a user.
         $captions = Caption::all()->sortByDesc('updated_at');
-        return view('dashboard.index', ['captions' => $captions, 'token' => $token->id]);
+//        return view('dashboard.index', ['captions' => $captions, 'token' => $token->id]);
+        return view('dashboard.index', ['captions' => $captions]);
     }
 
     /**
