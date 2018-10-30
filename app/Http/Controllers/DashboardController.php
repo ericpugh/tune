@@ -27,12 +27,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-      $userId = Auth::user()->getAuthIdentifier();
-//      $token = DB::table('oauth_access_tokens')->where('user_id', '=', $userId)->first();
-//      dd($userId);
-      // @TODO: Only return tasks belonging to a user.
+      // @TODO: Only return tasks belonging to a user. (need relationship on Model) then use Caption->with('user');
         $captions = Caption::all()->sortByDesc('updated_at');
-//        return view('dashboard.index', ['captions' => $captions, 'token' => $token->id]);
         return view('dashboard.index', ['captions' => $captions]);
     }
 
@@ -47,16 +43,13 @@ class DashboardController extends Controller
     }
 
     /**
-     * Create a user access token.
+     * User account page.
      *
      * @return \Illuminate\Http\Response
      */
-    public function createToken(User $user)
+    public function showAccount(User $user)
     {
-      // @TODO: currently tokens expire after one year, should we increase.
-      // @TODO: this doesn't actually create the usable token, see web.php routes for test route to output a token.
-      $token = $user->createToken('Timekeeper Access Token')->accessToken;
-      return redirect('dashboard')->with('status', 'Timekeeper Access Token created!');
+      return view('dashboard.account', compact('user'));
     }
 
 }

@@ -20,19 +20,15 @@ use App\User;
 Route::get('/', function () {
     return view('welcome');
 });
-// Test create an access token
-Route::get('/dashboard/token', function () {
-    return Auth::user()->createToken('timekeeper token');
-});
 // Public JSON for a Caption record(s).
 Route::get('/api/captions', 'CaptionsController@index');
 Route::get('/api/captions/{caption}', 'CaptionsController@show');
 
 Auth::routes();
 // Dashboard.
-Route::get('/dashboard', 'DashboardController@index');
-// Create Personal Access Token
-Route::post('/dashboard/user/{user}', 'DashboardController@createToken');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+// User Account
+Route::get('/dashboard/account/{user}', 'DashboardController@showAccount')->name('account');
 // Create Caption form.
 Route::get('/dashboard/captions/create', 'CaptionsController@create');
 // View a Caption in the browser.
