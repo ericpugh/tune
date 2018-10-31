@@ -74,6 +74,17 @@ class CaptionsController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Caption  $caption
+     * @return \Illuminate\Http\Response
+     */
+    public function showEmbed(Caption $caption)
+    {
+      return view('caption.embed', compact('caption'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Caption  $caption

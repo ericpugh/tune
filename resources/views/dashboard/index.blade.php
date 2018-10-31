@@ -24,7 +24,7 @@
                         <ul class="list-group">
                         @foreach ($captions as $caption)
                             <li class="list-group-item row d-flex">
-                                <div class="col col-8">
+                                <div class="col col-7">
                                     <a href="/dashboard/captions/{{ $caption->id }}">{{ $caption->name }}</a>
                                 </div>
                                 <div class="col col-3">
@@ -38,6 +38,11 @@
                                             <span class="oi oi-trash"></span>
                                         </button>
                                     </form>
+                                </div>
+                                <div class="col col-1">
+                                    <a class="btn btn-info" target="_blank" href="/embed/{{ $caption->id }}">
+                                        <span class="oi oi-code"></span>
+                                    </a>
                                 </div>
                             </li>
                         @endforeach

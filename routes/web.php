@@ -31,6 +31,8 @@ Route::get('/dashboard/account/{user}', 'DashboardController@showAccount')->name
 Route::get('/dashboard/captions/create', 'CaptionsController@create');
 // View a Caption in the browser.
 Route::get('/dashboard/captions/{caption}', 'DashboardController@showCaption');
+// View a Caption Embed in the browser.
+Route::get('/embed/{caption}', 'CaptionsController@showEmbed')->name('embed');
 // Store a Caption
 Route::post('/dashboard/captions', 'CaptionsController@store');
 // Delete a Caption
