@@ -55,6 +55,7 @@ class CaptionsController extends Controller
       $caption->caption = $request->get('caption');
       $caption->media_duration = $request->get('media_duration') ? $request->get('media_duration') : 0;
       $caption->media_current_time = 0;
+      $caption->user_id = $request->user()->id;
       $caption->save();
 
       return redirect('dashboard')->with('status', 'Caption created!');
