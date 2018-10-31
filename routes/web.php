@@ -17,9 +17,7 @@ use App\User;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@index');
 // Public JSON for a Caption record(s).
 Route::get('/api/captions', 'CaptionsController@index');
 Route::get('/api/captions/{caption}', 'CaptionsController@show');
