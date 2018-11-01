@@ -32,7 +32,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/dashboard">
-                                {{ __('Dashboard') }}
+                                {{ __('Captions') }}
                             </a>
                             <a class="dropdown-item" href="{{ route('account', ['user' => Auth::user()]) }}">
                                 {{ __('Account') }}

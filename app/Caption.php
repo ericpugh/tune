@@ -3,8 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Caption extends Model
 {
-    // @TODO: add "query scope" methods?
+  /**
+   * Get the User relationship
+   */
+  public function user() {
+    return $this->hasOne(User::class);
+  }
+
 }

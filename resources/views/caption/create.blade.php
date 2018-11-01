@@ -8,7 +8,7 @@
                     <div class="card-header">
                         <span class="oi oi-arrow-left"></span>
                         <a href="/dashboard">
-                            Dashboard
+                            Captions
                         </a>
                     </div>
 

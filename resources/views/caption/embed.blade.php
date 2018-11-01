@@ -11,7 +11,7 @@
     @endif
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:200,600" rel="stylesheet" type="text/css">
 
     <style>
         html, body {
@@ -27,6 +27,7 @@
 </head>
 <body>
     <div class="content">
+        <!-- @TODO: create a simple test to display a JS "clock" that rolls through the seconds from start time to media duration and repeats -->
         @if ($caption)
             <h1>{{ $caption->name }}</h1>
             <p>Current time: {{ $caption->media_current_time }}</p>

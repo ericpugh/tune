@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Caption;
 
 class User extends Authenticatable
 {
@@ -27,4 +28,12 @@ class User extends Authenticatable
   protected $hidden = [
       'password', 'remember_token',
   ];
+
+  /**
+   * Get the Captions for User.
+   */
+  public function captions() {
+    return $this->hasMany(Caption::class);
+  }
+
 }

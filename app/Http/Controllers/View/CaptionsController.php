@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\View;
 
 use App\Caption;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
 
 class CaptionsController extends Controller
 {
@@ -22,8 +23,13 @@ class CaptionsController extends Controller
      */
     public function index()
     {
-      $response = new Response(Caption::all());
-      return $response;
+      // @TODO: Only return items belonging to a user. (need relationship on Model) then use Caption->with('user');
+//      $captions = Caption::all()->sortByDesc('updated_at');
+//      $captions = Caption::with('user')->latest();
+      /** @var \App\User $user */
+      $user = \Auth::user();
+      $captions = $user->captions;
+      return view('caption.index', ['captions' => $captions]);
     }
 
     /**
@@ -69,19 +75,7 @@ class CaptionsController extends Controller
      */
     public function show(Caption $caption)
     {
-      $response = new Response($caption);
-      return $response;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Caption  $caption
-     * @return \Illuminate\Http\Response
-     */
-    public function showEmbed(Caption $caption)
-    {
-      return view('caption.embed', compact('caption'));
+      return view('caption.show', compact('caption'));
     }
 
     /**
@@ -110,26 +104,17 @@ class CaptionsController extends Controller
     }
 
     /**
-     * Update the caption media_current_time field.
+     * Display the specified resource as an embed.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Caption  $caption
      * @return \Illuminate\Http\Response
      */
-    public function updateCurrentTime(Request $request, Caption $caption)
+    public function showEmbed(Caption $caption)
     {
-//      return response()->json(['success' => $caption], 200);
-
-      $this->validate($request, [
-        'media_current_time' => 'required|string',
-      ]);
-      $caption->media_current_time = $request->get('media_current_time');
-      $caption->save();
-
-      return response()->json(['success' => $caption], 200);
+      return view('caption.embed', compact('caption'));
     }
 
-    /**
+  /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Caption  $caption
