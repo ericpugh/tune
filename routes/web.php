@@ -21,6 +21,8 @@ Route::get('/', 'View\WelcomeController@index');
 // Public JSON for a Caption record(s).
 Route::get('/api/captions', 'Api\CaptionsController@index');
 Route::get('/api/captions/{caption}', 'Api\CaptionsController@show');
+// View a Caption Embed in the browser.
+Route::get('/embed/{caption}', 'View\CaptionsController@showEmbed')->name('embed');
 
 Auth::routes();
 // Dashboard.
@@ -33,8 +35,6 @@ Route::get('/dashboard/captions/create', 'View\CaptionsController@create');
 Route::get('/dashboard/captions/{caption}/edit', 'View\CaptionsController@edit');
 // View a Caption in the browser.
 Route::get('/dashboard/captions/{caption}', 'View\CaptionsController@show');
-// View a Caption Embed in the browser.
-Route::get('/embed/{caption}', 'View\CaptionsController@showEmbed')->name('embed');
 // Store a Caption
 Route::post('/dashboard/captions', 'View\CaptionsController@store');
 // Update a Caption
