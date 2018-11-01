@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\View;
 
 use App\Caption;
+use App\Language;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -39,7 +40,8 @@ class CaptionsController extends Controller
      */
     public function create()
     {
-      return view('caption.create');
+      $languages = Language::all();
+      return view('caption.create', ['languages' => $languages]);
     }
 
     /**
@@ -62,6 +64,7 @@ class CaptionsController extends Controller
       $caption->media_duration = $request->get('media_duration') ? $request->get('media_duration') : 0;
       $caption->media_current_time = 0;
       $caption->user_id = $request->user()->id;
+      $caption->language_id = $request->get('language');
       $caption->save();
 
       return redirect('dashboard')->with('status', 'Caption created!');
@@ -86,9 +89,10 @@ class CaptionsController extends Controller
      */
     public function edit(Caption $caption)
     {
+      $languages = Language::all();
       $user = \Auth::user();
       if ($caption->user->id === $user->id) {
-        return view('caption.edit', compact('caption'));
+        return view('caption.edit',['caption' => $caption, 'languages' => $languages]);
       }
       else {
         abort(404);
@@ -114,6 +118,7 @@ class CaptionsController extends Controller
       $caption->caption = $request->get('caption');
       $caption->media_duration = $request->get('media_duration') ? $request->get('media_duration') : 0;
       $caption->user_id = $request->user()->id;
+      $caption->language_id = $request->get('language');
       $caption->save();
 
       return redirect('dashboard/captions/' . $caption->id)->with('status', sprintf('Caption <em>%s</em> updated!', $caption->name));

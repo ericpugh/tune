@@ -35,6 +35,10 @@
                         {{--</div>--}}
                         <ul class="list-group">
                             <li class="list-group-item">
+                                <label>Language</label>:
+                                {{ $caption->language->name }}
+                            </li>
+                            <li class="list-group-item">
                                 <label>Media Duration</label>:
                                 {{ $caption->media_duration }}
                             </li>

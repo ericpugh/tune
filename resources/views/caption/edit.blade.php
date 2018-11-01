@@ -44,6 +44,15 @@
                                     <label for="descriptionTextarea">Description</label>
                                     <textarea name="description" class="form-control" id="descriptionTextarea" rows="2">{{ $caption->description }}</textarea>
                                 </div>
+                                <select name="language" class="form-control" id="languageSelect">
+                                    @foreach($languages as $language)
+                                        @if ($language->id === $caption->language_id)
+                                            <option value="{{ $language->id }}" selected>{{ $language->name }}</option>
+                                        @else
+                                            <option value="{{ $language->id }}">{{ $language->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
                                 <div class="form-group">
                                     <label for="captionTextarea">Caption</label>
                                     <p class="form-text text-muted">A caption in <em>WebVTT</em> format</p>

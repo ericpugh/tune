@@ -17,7 +17,7 @@ class User extends Authenticatable
    * @var array
    */
   protected $fillable = [
-      'name', 'email', 'password',
+      'name', 'email', 'password', 'organization',
   ];
 
   /**
@@ -34,6 +34,13 @@ class User extends Authenticatable
    */
   public function captions() {
     return $this->hasMany(Caption::class);
+  }
+
+  /**
+   * Get the Organization of User.
+   */
+  public function organization() {
+    return $this->belongsTo(Organization::class);
   }
 
 }

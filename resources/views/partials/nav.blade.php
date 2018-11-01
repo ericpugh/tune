@@ -34,7 +34,7 @@
                             <a class="dropdown-item" href="/dashboard">
                                 {{ __('Captions') }}
                             </a>
-                            <a class="dropdown-item" href="{{ route('account', ['user' => Auth::user()]) }}">
+                            <a class="dropdown-item" href="{{ route('user.show', ['user' => Auth::user()]) }}">
                                 {{ __('Account') }}
                             </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"

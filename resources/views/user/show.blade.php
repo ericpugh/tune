@@ -44,11 +44,38 @@
                         Account
                     </div>
                     <div class="card-body">
-                        <ul>
-                            <li>Name: {{ $user->name }}</li>
-                            <li>Email: {{ $user->email }}</li>
-                            <li>TODO: Reset Password Form</li>
-                            <li>TODO: API TOKEN Authentication</li>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <label>Name</label>:
+                                {{ $user->name }}
+                            </li>
+                            <li class="list-group-item">
+                                <label>Email</label>:
+                                {{ $user->email }}
+                            </li>
+                            @if ($user->organization)
+                                <li class="list-group-item">
+                                    <label>Organization</label>:
+                                    {{ $user->organization->name }}
+                                </li>
+                                @else
+                                <li class="list-group-item">
+                                    <label>TODO</label>:
+                                    Add a form to select the user's Organization.
+                                </li>
+                            @endif
+                        </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <label>TODO</label>:
+                                Reset Password Form.
+                            </li>
+                        </ul>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <label>TODO</label>:
+                                API TOKEN Authentication.
+                            </li>
                         </ul>
                     </div>
                 </div>

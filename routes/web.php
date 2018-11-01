@@ -26,7 +26,7 @@ Auth::routes();
 // Dashboard.
 Route::get('/dashboard', 'View\CaptionsController@index')->name('dashboard');
 // User Account
-Route::get('/dashboard/account/{user}', 'View\DashboardController@account')->name('account');
+Route::get('/dashboard/account/{user}', 'View\UsersController@show')->name('user.show');
 // Create Caption form.
 Route::get('/dashboard/captions/create', 'View\CaptionsController@create');
 // Edit Caption form.

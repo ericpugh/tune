@@ -15,13 +15,13 @@ class CreateCaptionsTable extends Migration
     {
         Schema::create('captions', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('name');
             $table->text('description');
             $table->text('caption');
             $table->integer('media_duration');
             $table->integer('media_current_time');
             $table->timestamp('timekeeper')->default(now());
+            $table->timestamps();
         });
     }
 

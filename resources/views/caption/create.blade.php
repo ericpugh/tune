@@ -36,6 +36,14 @@
                                     <textarea name="description" class="form-control" id="descriptionTextarea" rows="2"></textarea>
                                 </div>
                                 <div class="form-group">
+                                    <label for="languageSelect">Language</label>
+                                    <select name="language" class="form-control" id="languageSelect">
+                                        @foreach($languages as $language)
+                                            <option value="{{ $language->id }}">{{ $language->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="captionTextarea">Caption</label>
                                     <p class="form-text text-muted">A caption in <em>WebVTT</em> format</p>
                                     <textarea name="caption" class="form-control" id="captionTextarea" rows="8" required></textarea>

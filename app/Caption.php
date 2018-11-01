@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
 
 class Caption extends Model
 {
@@ -12,6 +11,13 @@ class Caption extends Model
    */
   public function user() {
     return $this->belongsTo(User::class);
+  }
+
+  /**
+   * Get the Language relationship
+   */
+  public function language() {
+    return $this->belongsTo(Language::class);
   }
 
 }
