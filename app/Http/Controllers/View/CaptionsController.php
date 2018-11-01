@@ -86,44 +86,60 @@ class CaptionsController extends Controller
      */
     public function edit(Caption $caption)
     {
-        //
+      $user = \Auth::user();
+      if ($caption->user->id === $user->id) {
+        return view('caption.edit', compact('caption'));
+      }
+      else {
+        abort(404);
+      }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Caption  $caption
+     * @param \App\Caption $caption
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Caption $caption)
     {
-      $time = $request->get('media_current_time');
-      $caption->media_current_time = $time;
-      return response()->json($caption, 200);
-    }
+      $this->validate($request, [
+        'name' => 'required',
+        'caption' => 'required',
+        'media_duration' => 'required',
+      ]);
+      $caption->name = $request->get('name') ? $request->get('name') : 'Untitled';
+      $caption->description = $request->get('description') ? $request->get('description') : '';
+      $caption->caption = $request->get('caption');
+      $caption->media_duration = $request->get('media_duration') ? $request->get('media_duration') : 0;
+      $caption->user_id = $request->user()->id;
+      $caption->save();
 
-    /**
-     * Display the specified resource as an embed.
-     *
-     * @param  \App\Caption  $caption
-     * @return \Illuminate\Http\Response
-     */
-    public function showEmbed(Caption $caption)
-    {
-      return view('caption.embed', compact('caption'));
+      return redirect('dashboard/captions/' . $caption->id)->with('status', sprintf('Caption <em>%s</em> updated!', $caption->name));
     }
 
   /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Caption  $caption
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Caption $caption)
-    {
-        $caption->delete();
-        return redirect('dashboard')->with('status', 'Caption removed!');
+   * Remove the specified resource from storage.
+   *
+   * @param  \App\Caption  $caption
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(Caption $caption)
+  {
+      $caption->delete();
+      return redirect('dashboard')->with('status', 'Caption removed!');
+  }
 
-    }
+  /**
+   * Display the specified resource as an embed.
+   *
+   * @param  \App\Caption  $caption
+   * @return \Illuminate\Http\Response
+   */
+  public function showEmbed(Caption $caption)
+  {
+    return view('caption.embed', compact('caption'));
+  }
+
 }

@@ -7,7 +7,7 @@
 
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
+                    {!! session('status') !!}
                 </div>
             @endif
 
@@ -26,25 +26,13 @@
                             <ul class="list-group captions-list">
                                 @forelse ($captions as $caption)
                                     <li class="list-group-item row d-flex">
-                                        <div class="col col-7">
+                                        <div class="col col-9">
                                             <a href="/dashboard/captions/{{ $caption->id }}">{{ $caption->name }}</a>
                                         </div>
-                                        <div class="col col-3">
-                                            <p class="text-muted">{{ $caption->updated_at->toFormattedDateString() }}</p>
-                                        </div>
-                                        <div class="col col-1">
-                                            <form action="/dashboard/captions/{{ $caption->id }}" method="post">
-                                                {{ method_field('delete') }}
-                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                <button class="btn btn-danger" type="submit">
-                                                    <span class="oi oi-trash"></span>
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div class="col col-1">
-                                            <a class="btn btn-info" target="_blank" href="/embed/{{ $caption->id }}">
-                                                <span class="oi oi-code"></span>
-                                            </a>
+                                        @include('partials.caption-actions')
+
+                                        <div class="col col-12">
+                                            <p class="text-muted">{{ $caption->description }}</p>
                                         </div>
                                     </li>
                                 @empty

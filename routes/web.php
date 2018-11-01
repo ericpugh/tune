@@ -24,17 +24,21 @@ Route::get('/api/captions/{caption}', 'Api\CaptionsController@show');
 
 Auth::routes();
 // Dashboard.
-Route::get('/dashboard', 'View\CaptionsController@index');
+Route::get('/dashboard', 'View\CaptionsController@index')->name('dashboard');
 // User Account
 Route::get('/dashboard/account/{user}', 'View\DashboardController@account')->name('account');
 // Create Caption form.
 Route::get('/dashboard/captions/create', 'View\CaptionsController@create');
+// Edit Caption form.
+Route::get('/dashboard/captions/{caption}/edit', 'View\CaptionsController@edit');
 // View a Caption in the browser.
 Route::get('/dashboard/captions/{caption}', 'View\CaptionsController@show');
 // View a Caption Embed in the browser.
 Route::get('/embed/{caption}', 'View\CaptionsController@showEmbed')->name('embed');
 // Store a Caption
 Route::post('/dashboard/captions', 'View\CaptionsController@store');
+// Update a Caption
+Route::put('/dashboard/captions/{caption}', 'View\CaptionsController@update');
 // Delete a Caption
 Route::delete('/dashboard/captions/{caption}', 'View\CaptionsController@destroy');
 

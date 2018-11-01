@@ -11,7 +11,7 @@ class Caption extends Model
    * Get the User relationship
    */
   public function user() {
-    return $this->hasOne(User::class);
+    return $this->belongsTo(User::class);
   }
 
 }

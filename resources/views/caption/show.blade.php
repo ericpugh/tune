@@ -8,24 +8,31 @@
                 <div class="card-header">
                     <span class="oi oi-arrow-left"></span>
                     <a href="/dashboard">
-                        Dashboard
+                        Captions
                     </a>
                 </div>
 
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                            {!! session('status') !!}
                         </div>
                     @endif
 
                     @if ($caption)
-                        <h2>{{ $caption->name }}</h2>
-                        <div class="form-group">
-                            <label id="api-endpoint-label"><span class="oi oi-link-intact"></span>API Endpoint</label>:
-                            <input aria-labelledby="api-endpoint-label" class="form-control" type="text" value="/api/captions/{{ $caption->id }}" readonly>
+                        <div class="row">
+                            <div class="col col-9">
+                                <h2>{{ $caption->name }}</h2>
+                            </div>
+                            @include('partials.caption-actions')
+                            <div class="col col-12">
+                                <p class="text-muted">{{ $caption->updated_at->toFormattedDateString() }}</p>
+                            </div>
                         </div>
-                        <div class="text-justify ">{{ $caption->caption }}</div>
+                        {{--<div class="form-group">--}}
+                            {{--<label id="api-endpoint-label"><span class="oi oi-link-intact"></span>API Endpoint</label>:--}}
+                            {{--<input aria-labelledby="api-endpoint-label" class="form-control" type="text" value="/api/captions/{{ $caption->id }}" readonly>--}}
+                        {{--</div>--}}
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <label>Media Duration</label>:
@@ -40,6 +47,7 @@
                                 {{ $caption->timekeeper }}
                             </li>
                         </ul>
+                        <div class="text-justify ">{{ $caption->caption }}</div>
                     @else
                         <p class="alert">Caption not found.</p>
                     @endif
