@@ -23,4 +23,5 @@ use App\Caption;
 //});
 
 // @TODO: move this to api routes with Oauth/JWT authenication.
-Route::middleware('auth:api')->patch('captions/{caption}', 'CaptionsController@updateCurrentTime');
+//Route::middleware('auth:api')->patch('captions/{caption}', 'CaptionsController@updateCurrentTime');
+Route::patch('captions/{caption}', 'Api\CaptionsController@update')->middleware('auth.basic.once');

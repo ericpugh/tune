@@ -17,28 +17,28 @@ use App\User;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-// Test create an access token
-Route::get('/dashboard/token', function () {
-    return Auth::user()->createToken('timekeeper token');
-});
+Route::get('/', 'View\WelcomeController@index');
 // Public JSON for a Caption record(s).
-Route::get('/api/captions', 'CaptionsController@index');
-Route::get('/api/captions/{caption}', 'CaptionsController@show');
+Route::get('/api/captions', 'Api\CaptionsController@index');
+Route::get('/api/captions/{caption}', 'Api\CaptionsController@show');
+// View a Caption Embed in the browser.
+Route::get('/embed/{caption}', 'View\CaptionsController@showEmbed')->name('embed');
 
 Auth::routes();
 // Dashboard.
-Route::get('/dashboard', 'DashboardController@index');
-// Create Personal Access Token
-Route::post('/dashboard/user/{user}', 'DashboardController@createToken');
+Route::get('/dashboard', 'View\CaptionsController@index')->name('dashboard');
+// User Account
+Route::get('/dashboard/account/{user}', 'View\UsersController@show')->name('user.show');
 // Create Caption form.
-Route::get('/dashboard/captions/create', 'CaptionsController@create');
+Route::get('/dashboard/captions/create', 'View\CaptionsController@create');
+// Edit Caption form.
+Route::get('/dashboard/captions/{caption}/edit', 'View\CaptionsController@edit');
 // View a Caption in the browser.
-Route::get('/dashboard/captions/{caption}', 'DashboardController@showCaption');
+Route::get('/dashboard/captions/{caption}', 'View\CaptionsController@show');
 // Store a Caption
-Route::post('/dashboard/captions', 'CaptionsController@store');
+Route::post('/dashboard/captions', 'View\CaptionsController@store');
+// Update a Caption
+Route::put('/dashboard/captions/{caption}', 'View\CaptionsController@update');
 // Delete a Caption
-Route::delete('/dashboard/captions/{caption}', 'CaptionsController@destroy');
+Route::delete('/dashboard/captions/{caption}', 'View\CaptionsController@destroy');
 

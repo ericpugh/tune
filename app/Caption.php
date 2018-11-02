@@ -6,5 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Caption extends Model
 {
-    // @TODO: add "query scope" methods?
+  /**
+   * Get the User relationship
+   */
+  public function user() {
+    return $this->belongsTo(User::class);
+  }
+
+  /**
+   * Get the Language relationship
+   */
+  public function language() {
+    return $this->belongsTo(Language::class);
+  }
+
 }

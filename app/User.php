@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Caption;
 
 class User extends Authenticatable
 {
-  use HasApiTokens, Notifiable;
+  use Notifiable;
 
   /**
    * The attributes that are mass assignable.
@@ -17,7 +17,7 @@ class User extends Authenticatable
    * @var array
    */
   protected $fillable = [
-      'name', 'email', 'password',
+      'name', 'email', 'password', 'organization',
   ];
 
   /**
@@ -28,4 +28,19 @@ class User extends Authenticatable
   protected $hidden = [
       'password', 'remember_token',
   ];
+
+  /**
+   * Get the Captions for User.
+   */
+  public function captions() {
+    return $this->hasMany(Caption::class);
+  }
+
+  /**
+   * Get the Organization of User.
+   */
+  public function organization() {
+    return $this->belongsTo(Organization::class);
+  }
+
 }

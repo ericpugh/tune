@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCaptionsTable extends Migration
+class CreateOrganizationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateCaptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('captions', function (Blueprint $table) {
+        Schema::create('organizations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->text('description');
-            $table->text('caption');
-            $table->integer('media_duration');
-            $table->integer('media_current_time');
-            $table->timestamp('timekeeper')->default(now());
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class CreateCaptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('captions');
+        Schema::dropIfExists('organizations');
     }
 }
