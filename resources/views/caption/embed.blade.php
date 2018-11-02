@@ -32,9 +32,17 @@
         <!-- @TODO: create a simple test to display a JS "clock" that rolls through the seconds from start time to media duration and repeats -->
         @if ($caption)
             <h1>{{ $caption->name }}</h1>
-            <h2 id="clock" data-media-duration="{{ $caption->media_current_time }}"></h2>
-            <p>Current time: {{ $caption->media_current_time }}</p>
-            <div>{{ $caption->caption }}</div>
+            <h2 id="clock" data-media-duration="{{ $caption->media_duration }}" data-media-current="{{ $caption->media_current_time }}" data-updated="{{ $updated }}">00:00:00</h2>
+            <p>The media is {{ $caption->media_duration }} seconds long, and was last started <span id="updated-text">__</span> seconds ago.</p>
+            <div id="vtt">
+                @foreach ($vtt as $key => $cue)
+                    <div id="cue-{{ $key }}" class="cue" @if ($cue['start'])data-start="{{ $cue['start'] }}" @endif @if ($cue['end'])data-end="{{ $cue['end'] }}" @endif @if ($cue['voice']) data-voice="{{ $cue['voice'] }}" @endif @if ($cue['identifier']) data-identifier="{{ $cue['identifier'] }}"@endif>
+                        @if ($cue['text'])
+                            {{ $cue['text'] }}
+                        @endif
+                    </div>
+                @endforeach
+            </div>
         @else
             <p class="alert">Caption not found.</p>
         @endif

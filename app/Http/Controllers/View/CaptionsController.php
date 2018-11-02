@@ -7,14 +7,21 @@ use App\Language;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use Podlove\Webvtt\Parser;
+use Podlove\Webvtt\ParserException;
 
 class CaptionsController extends Controller
 {
+  /**
+   * @var \Podlove\Webvtt\Parser $vttParser
+   */
+  protected $vttParser;
 
   public function __construct()
   {
     $this->middleware('auth', ['except' => ['index', 'show']]);
     $guarded = ['id', 'created_at', 'updated_at'];
+    $this->vttParser = new \Podlove\Webvtt\Parser();
   }
 
     /**
@@ -24,9 +31,6 @@ class CaptionsController extends Controller
      */
     public function index()
     {
-      // @TODO: Only return items belonging to a user. (need relationship on Model) then use Caption->with('user');
-//      $captions = Caption::all()->sortByDesc('updated_at');
-//      $captions = Caption::with('user')->latest();
       /** @var \App\User $user */
       $user = \Auth::user();
       $captions = $user->captions;
@@ -144,7 +148,12 @@ class CaptionsController extends Controller
    */
   public function showEmbed(Caption $caption)
   {
-    return view('caption.embed', compact('caption'));
+    // Get caption and append an ending line break.
+    $content = $caption->caption . PHP_EOL;
+    $parsed = $this->vttParser->parse($content);
+    $vtt = isset($parsed['cues']) ? $parsed['cues'] : [];
+    $updated_time = strtotime($caption->updated_at);
+    return view('caption.embed', ['caption' => $caption, 'vtt' => $vtt, 'updated' => $updated_time]);
   }
 
 }
