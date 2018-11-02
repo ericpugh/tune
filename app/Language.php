@@ -17,6 +17,15 @@ class Language extends Model
   ];
 
   /**
+   * The attributes that should be hidden for arrays.
+   *
+   * @var array
+   */
+  protected $hidden = [
+    'created_at', 'updated_at',
+  ];
+
+  /**
    * Get the Captions for Language.
    */
   public function captions() {

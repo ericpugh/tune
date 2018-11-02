@@ -1,5 +1,9 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
+@if ($caption->language)
+<html lang="{{ $caption->language->langcode }}">
+@else
+<html>
+@endif
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +15,9 @@
         <title>Tune Embed</title>
     @endif
     <!-- Scripts -->
+    <script>
+        var vtt = {!! $json !!};
+    </script>
     <script type="text/javascript" src="{{ asset('js/embed.js') }}" defer></script>
 
     <!-- Styles -->

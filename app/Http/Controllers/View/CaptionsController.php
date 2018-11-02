@@ -153,7 +153,12 @@ class CaptionsController extends Controller
     $parsed = $this->vttParser->parse($content);
     $vtt = isset($parsed['cues']) ? $parsed['cues'] : [];
     $updated_time = strtotime($caption->updated_at);
-    return view('caption.embed', ['caption' => $caption, 'vtt' => $vtt, 'updated' => $updated_time]);
+    return view('caption.embed',
+      ['caption' => $caption,
+        'vtt' => $vtt,
+        'json' => json_encode($vtt, JSON_PRETTY_PRINT),
+        'updated' => $updated_time,
+      ]);
   }
 
 }

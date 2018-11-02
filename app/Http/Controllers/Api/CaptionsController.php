@@ -36,7 +36,7 @@ class CaptionsController extends Controller
    */
   public function show(Caption $caption)
   {
-    $response = new Response($caption);
+    $response = new Response($caption->with(['user.organization', 'language'])->get());
     return $response;
   }
 
