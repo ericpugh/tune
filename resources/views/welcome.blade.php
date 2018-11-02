@@ -84,7 +84,7 @@
                 <h3 class="text-muted">Real-time Captioning for Time-based Media</h3>
 
                 <div class="links">
-                    <a href="#">Documentation</a>
+                    <a href="https://github.com/ericpugh/tune/blob/master/readme.md">Documentation</a>
                     <a href="https://si.edu">Smithsonian Institution</a>
                 </div>
             </div>

@@ -19,7 +19,7 @@ class CaptionsController extends Controller
 
   public function __construct()
   {
-    $this->middleware('auth', ['except' => ['index', 'show']]);
+    $this->middleware('auth', ['except' => ['showEmbed']]);
     $guarded = ['id', 'created_at', 'updated_at'];
     $this->vttParser = new \Podlove\Webvtt\Parser();
   }
