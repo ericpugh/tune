@@ -7,21 +7,14 @@ use App\Language;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
-use Podlove\Webvtt\Parser;
-use Podlove\Webvtt\ParserException;
 
 class CaptionsController extends Controller
 {
-  /**
-   * @var \Podlove\Webvtt\Parser $vttParser
-   */
-  protected $vttParser;
 
   public function __construct()
   {
     $this->middleware('auth', ['except' => ['showEmbed']]);
     $guarded = ['id', 'created_at', 'updated_at'];
-    $this->vttParser = new \Podlove\Webvtt\Parser();
   }
 
     /**
@@ -117,15 +110,23 @@ class CaptionsController extends Controller
         'caption' => 'required',
         'media_duration' => 'required',
       ]);
+      $text = $request->get('caption');
+      // Return an error if the parser fails to parse the VTT string provided.
+//      try {
+//        $parsable = $caption->parse($text);
+//      }
+//      catch(\Exception $e) {
+//        $msg = sprintf('VVT Parsing Error: %s!', $e->getMessage());
+//        return redirect()->back()->withErrors($msg);
+//      }
+      $caption->caption = $text;
       $caption->name = $request->get('name') ? $request->get('name') : 'Untitled';
       $caption->description = $request->get('description') ? $request->get('description') : '';
-      $caption->caption = $request->get('caption');
       $caption->media_duration = $request->get('media_duration') ? $request->get('media_duration') : 0;
       $caption->user_id = $request->user()->id;
       $caption->language_id = $request->get('language');
       $caption->save();
-
-      return redirect('dashboard/captions/' . $caption->id)->with('status', sprintf('Caption <em>%s</em> updated!', $caption->name));
+      return redirect('dashboard/captions/' . $caption->id)->withErrors(sprintf('Caption <em>%s</em> updated!', $caption->name));
     }
 
   /**
@@ -150,15 +151,23 @@ class CaptionsController extends Controller
   {
     // Get caption and append an ending line break.
     $content = $caption->caption . PHP_EOL;
-    $parsed = $this->vttParser->parse($content);
-    $vtt = isset($parsed['cues']) ? $parsed['cues'] : [];
-    $updated_time = strtotime($caption->updated_at);
-    return view('caption.embed',
-      ['caption' => $caption,
-        'vtt' => $vtt,
-        'json' => json_encode($vtt, JSON_PRETTY_PRINT),
-        'updated' => $updated_time,
-      ]);
+    try {
+      $parsed = $caption->parse($content);
+      $vtt = isset($parsed['cues']) ? $parsed['cues'] : [];
+      $updated_at = strtotime($caption->updated_at);
+      $now = strtotime(now());
+      $updated = $now - $updated_at;
+      return view('caption.embed',
+        ['caption' => $caption,
+          'vtt' => $vtt,
+          'json' => json_encode($vtt, JSON_PRETTY_PRINT),
+          'updated' => $updated,
+        ]);
+    }
+    catch (\Exception $e) {
+      $msg = sprintf('VVT Parsing Error: %s!', $e->getMessage());
+      return view('caption.embed', [])->withErrors([$msg]);
+    }
   }
 
 }

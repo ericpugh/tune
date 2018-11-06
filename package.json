@@ -20,6 +20,6 @@
         "vue": "^2.5.7"
     },
     "dependencies": {
-        "easytimer.js": "^2.3.0"
+        "popcorn-js": "github:ericpugh/popcorn-js#dev"
     }
 }

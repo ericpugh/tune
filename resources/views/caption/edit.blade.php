@@ -25,7 +25,6 @@
                             <hr />
 
                             @include('partials.errors')
-                            <p>form here.</p>
 
                         @else
                             <p class="alert">Caption not found.</p>

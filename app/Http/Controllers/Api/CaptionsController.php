@@ -53,6 +53,7 @@ class CaptionsController extends Controller
       'media_current_time' => 'required|string',
     ]);
     $caption->media_current_time = $request->get('media_current_time');
+    $caption->touch();
     $caption->save();
 
     return response()->json(['success' => $caption], 200);
