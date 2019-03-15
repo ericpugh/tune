@@ -17,7 +17,7 @@ class CreateCaptionsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('description');
-            $table->text('caption');
+            $table->longText('caption');
             $table->integer('media_duration');
             $table->integer('media_current_time');
             $table->timestamp('timekeeper')->default(now());
