@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
          $this->call([
            OrganizationsTableSeeder::class,
            LanguagesTableSeeder::class,
+           CaptionsTableSeeder::class,
          ]);
     }
 }
