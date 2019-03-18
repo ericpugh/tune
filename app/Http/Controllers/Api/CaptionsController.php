@@ -36,7 +36,11 @@ class CaptionsController extends Controller
    */
   public function show(Caption $caption)
   {
-    $response = new Response($caption->with(['user.organization', 'language'])->get());
+    $response = new Response(
+      Caption::with(['user.organization', 'language'])
+        ->where('id', $caption->id)
+        ->first()
+    );
     return $response;
   }
 
