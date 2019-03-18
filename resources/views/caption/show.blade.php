@@ -51,7 +51,7 @@
                                 {{ $caption->timekeeper }}
                             </li>
                         </ul>
-                        <div class="text-justify ">{!! nl2br($caption->caption) !!}</div>
+                        <pre class="mt-2">{!! nl2br($caption->caption) !!}</pre>
                     @else
                         <p class="alert">Caption not found.</p>
                     @endif
