@@ -112,13 +112,13 @@ class CaptionsController extends Controller
       ]);
       $text = $request->get('caption');
       // Return an error if the parser fails to parse the VTT string provided.
-//      try {
-//        $parsable = $caption->parse($text);
-//      }
-//      catch(\Exception $e) {
-//        $msg = sprintf('VVT Parsing Error: %s!', $e->getMessage());
-//        return redirect()->back()->withErrors($msg);
-//      }
+      try {
+        $parsable = $caption->parse($text . PHP_EOL);
+      }
+      catch(\Exception $e) {
+        $msg = sprintf('Invalid VVT Error (CODE: %s LINE: %s): %s', $e->getPrevious(), $e->getLine(), $e->getMessage());
+        return redirect()->back()->withErrors($msg);
+      }
       $caption->caption = $text;
       $caption->name = $request->get('name') ? $request->get('name') : 'Untitled';
       $caption->description = $request->get('description') ? $request->get('description') : '';

@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Tune</title>
 
@@ -67,9 +68,10 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div id="app" class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
+                    <a href="https://github.com/ericpugh/tune/blob/master/readme.md">Documentation</a>
                     @auth
                         <a href="{{ url('/dashboard') }}">Dashboard</a>
                     @else
@@ -78,16 +80,13 @@
                     @endauth
                 </div>
             @endif
-
             <div class="content">
                 <h1 class="title m-b-md">~Tune~</h1>
                 <h3 class="text-muted">Real-time Captioning for Time-based Media</h3>
-
-                <div class="links">
-                    <a href="https://github.com/ericpugh/tune/blob/master/readme.md">Documentation</a>
-                    <a href="https://si.edu">Smithsonian Institution</a>
-                </div>
+                <caption-list></caption-list>
             </div>
         </div>
+        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     </body>
+
 </html>
