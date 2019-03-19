@@ -16,7 +16,7 @@ git clone https://github.com/ericpugh/tune.git
 ```
 - From the application root directory run `composer install` and `npm install` to install dependencies.
 - Copy the .env.example file to .env and enter your own database name, host, and credentials.
-- Ensure the storage, bootstrap/cache & public/uploads folders are writable by the web server.
+- Ensure the storage, bootstrap/cache folder is writable by the web server.
 - In the application root, run `php artisan migrate` to update the database.
 - Set the web root on your server to point to the Tune public folder. For example, an NGINX config:
 ```
